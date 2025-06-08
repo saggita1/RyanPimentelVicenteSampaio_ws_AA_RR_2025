@@ -23,6 +23,18 @@ void verificaAlgo(int n, FILE *arquivo) {
             }
         }
     }
+    
+/*     VERSÃO O(1):
+    for (l = 1; l <= 1; l++) {
+        for (i = 1; i <= 1; i++) {
+            for (j = 1; j <= 1; j++) {
+                for (k = 1; k <= 1; k++) {
+                    contador++;
+                }
+            }
+        }
+    }
+*/
     fim = clock();
     double tempoExecucao = ((double) fim - inicio) / CLOCKS_PER_SEC;
 
