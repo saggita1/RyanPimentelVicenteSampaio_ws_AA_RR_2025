@@ -49,7 +49,7 @@ int main() {
 
 
     // quantos testes vamos realizar
-    int quantidade_testes[] = {10, 25, 30, 50, 100, 200};
+    int quantidade_testes[] = {1000, 10000, 100000, 1000000};
     int tamanho = sizeof(quantidade_testes) / sizeof(quantidade_testes[0]);
 
 
