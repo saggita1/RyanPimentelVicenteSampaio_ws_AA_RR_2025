@@ -6,10 +6,14 @@
 long long contador=0;
 
 void verificaAlgo(int n) {
+    clock_t inicio, fim;
+
     // reset do contador
     contador = 0;
 
     int i, j, k, l;
+
+    inicio = clock();
     for (l = 1; l <= 10000; l++) {
         for (i=1; i <= n -5; i++) {
             for (j = i+2; j <= n/2; j++) {
@@ -19,7 +23,11 @@ void verificaAlgo(int n) {
             }
         }
     }
-    printf("\nPara N = %d, Contador: %lld\n", n, contador);
+    fim = clock();
+    double tempoExecucao = ((double) fim - inicio) / CLOCKS_PER_SEC;
+
+    printf("\nPara N = %d, Contador: %lld", n, contador);
+    printf("\nTempo de execucao para N=%d: %.3fs\n", n, tempoExecucao);
 }
 
 void handler(int sinal) {
@@ -29,7 +37,6 @@ void handler(int sinal) {
 
 int main() {
     signal(SIGINT, handler);
-    clock_t inicio, fim;
     int quantidade;
 
     // quantos testes vamos realizar
@@ -38,14 +45,9 @@ int main() {
 
 
     // execucao da funcao em si
-    inicio = clock();
     for (int i=0; i < tamanho; i++) {
         verificaAlgo(quantidade_testes[i]);
     }
-    fim = clock();
-
-    double tempoExecucao = ((double) fim - inicio) / CLOCKS_PER_SEC;
-
-    printf("\nTempo de execucao: %.3fs\n", tempoExecucao);
+    
     return 0;
 }
