@@ -5,7 +5,7 @@
 
 long long contador=0;
 
-void verificaAlgo(int n) {
+void verificaAlgo(int n, FILE *arquivo) {
     clock_t inicio, fim;
 
     // reset do contador
@@ -28,6 +28,9 @@ void verificaAlgo(int n) {
 
     printf("\nPara N = %d, Contador: %lld", n, contador);
     printf("\nTempo de execucao para N=%d: %.3fs\n", n, tempoExecucao);
+
+    // escrevendo no csv
+    fprintf(arquivo, "%d, %lld, %.3f\n", n, contador, tempoExecucao);
 }
 
 void handler(int sinal) {
@@ -38,6 +41,12 @@ void handler(int sinal) {
 int main() {
     signal(SIGINT, handler);
     int quantidade;
+    FILE *arquivo; // ponteiro pro arquivo csv
+
+    // abrindo e escrevendo cabeçalho
+    arquivo = fopen("resultados.csv", "w");
+    fprintf(arquivo, "N, Contador, Tempo de execução\n");
+
 
     // quantos testes vamos realizar
     int quantidade_testes[] = {10, 25, 30, 50, 100, 200};
@@ -46,8 +55,11 @@ int main() {
 
     // execucao da funcao em si
     for (int i=0; i < tamanho; i++) {
-        verificaAlgo(quantidade_testes[i]);
+        verificaAlgo(quantidade_testes[i], arquivo);
     }
     
+    // fechando arquivo
+    fclose(arquivo);
+    printf("\nResultados salvos em resultados.csv\n");
     return 0;
 }
