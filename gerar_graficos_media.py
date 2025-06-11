@@ -1,20 +1,33 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+
+# Definir o caminho da pasta csv
+pasta_csv = 'csv'
 
 # Lista com os nomes dos 7 arquivos CSV
 arquivos = ['resultados1.csv', 'resultados2.csv', 'resultados3.csv', 
            'resultados4.csv', 'resultados5.csv', 'resultados6.csv', 'resultados7.csv']
 
+# Criar caminhos completos para os arquivos na pasta csv
+caminhos_arquivos = [os.path.join(pasta_csv, arquivo) for arquivo in arquivos]
+
+# Verificar se a pasta csv existe
+if not os.path.exists(pasta_csv):
+    print(f"✗ Erro: A pasta '{pasta_csv}' não foi encontrada!")
+    print(f"Certifique-se de que a pasta '{pasta_csv}' existe no diretório atual.")
+    exit(1)
+
 # Ler todos os arquivos e armazenar em uma lista
-print("Lendo arquivos CSV...")
+print(f"Lendo arquivos CSV da pasta '{pasta_csv}'...")
 dfs = []
-for i, arquivo in enumerate(arquivos, 1):
+for i, (arquivo, caminho) in enumerate(zip(arquivos, caminhos_arquivos), 1):
     try:
-        df = pd.read_csv(arquivo)
+        df = pd.read_csv(caminho)
         dfs.append(df)
         print(f"✓ {arquivo} carregado com sucesso")
     except FileNotFoundError:
-        print(f"✗ Erro: {arquivo} não encontrado")
+        print(f"✗ Erro: {arquivo} não encontrado na pasta '{pasta_csv}'")
         exit(1)
 
 print(f"\nTotal de {len(dfs)} arquivos carregados com sucesso!")
@@ -85,11 +98,12 @@ if salvar == 's':
     
     print("✓ Gráficos salvos como 'tempo_medio_7execucoes.png' e 'contador_7execucoes.png'")
 
-# Salvar dados médios em CSV
+# Salvar dados médios em CSV na pasta csv
 salvar_csv = input("Deseja salvar os dados médios em CSV? (s/n): ").lower()
 if salvar_csv == 's':
-    dados_media.to_csv('resultados_media_7execucoes.csv', index=False)
-    print("✓ Dados médios salvos em 'resultados_media_7execucoes.csv'")
+    caminho_resultado = os.path.join(pasta_csv, 'resultados_media_7execucoes.csv')
+    dados_media.to_csv(caminho_resultado, index=False)
+    print(f"✓ Dados médios salvos em '{caminho_resultado}'")
 
 print("\nAnálise concluída!")
 print(f"Média calculada com base em {len(arquivos)} execuções para maior precisão estatística.")
