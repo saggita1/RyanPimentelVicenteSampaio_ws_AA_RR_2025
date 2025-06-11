@@ -1,8 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Lista com os nomes dos arquivos CSV
-arquivos = ['resultados1.csv', 'resultados2.csv', 'resultados3.csv']
+# Lista com os nomes dos 7 arquivos CSV
+arquivos = ['resultados1.csv', 'resultados2.csv', 'resultados3.csv', 
+           'resultados4.csv', 'resultados5.csv', 'resultados6.csv', 'resultados7.csv']
 
 # Ler todos os arquivos e armazenar em uma lista
 print("Lendo arquivos CSV...")
@@ -16,6 +17,8 @@ for i, arquivo in enumerate(arquivos, 1):
         print(f"✗ Erro: {arquivo} não encontrado")
         exit(1)
 
+print(f"\nTotal de {len(dfs)} arquivos carregados com sucesso!")
+
 # Calcular média apenas do tempo (N e contador são constantes)
 print("\nCalculando média dos tempos de execução...")
 dados_media = pd.concat(dfs).groupby('N').agg({
@@ -27,14 +30,15 @@ dados_media = pd.concat(dfs).groupby('N').agg({
 print("\nDados com tempo médio calculado:")
 print(dados_media)
 print(f"\nObservação: N e Contador são constantes entre execuções.")
-print(f"Apenas o tempo de execução varia e teve sua média calculada.")
+print(f"Apenas o tempo de execução varia e teve sua média calculada de {len(arquivos)} execuções.")
 
 # Gráfico 1: Tempo médio de execução
 plt.figure(figsize=(12, 6))
 plt.plot(dados_media['N'], dados_media['Tempo de execucao'], 'b-o', linewidth=2, markersize=8)
 plt.xlabel('N', fontsize=12)
 plt.ylabel('Tempo Médio de Execução (segundos)', fontsize=12)
-plt.title('Tempo Médio de Execução vs Tamanho de Entrada', fontsize=14, fontweight='bold')
+plt.title(f'Tempo Médio de Execução vs Tamanho de Entrada (Média de {len(arquivos)} execuções)', 
+          fontsize=14, fontweight='bold')
 plt.grid(True, alpha=0.7)
 plt.yscale('log')
 plt.tight_layout()
@@ -59,11 +63,12 @@ if salvar == 's':
     plt.plot(dados_media['N'], dados_media['Tempo de execucao'], 'b-o', linewidth=2, markersize=8)
     plt.xlabel('N', fontsize=12)
     plt.ylabel('Tempo Médio de Execução (segundos)', fontsize=12)
-    plt.title('Tempo Médio de Execução vs Tamanho de Entrada', fontsize=14, fontweight='bold')
+    plt.title(f'Tempo Médio de Execução vs Tamanho de Entrada (Média de {len(arquivos)} execuções)', 
+              fontsize=14, fontweight='bold')
     plt.grid(True, alpha=0.7)
     plt.yscale('log')
     plt.tight_layout()
-    plt.savefig('tempo_medio.png', dpi=300, bbox_inches='tight')
+    plt.savefig('tempo_medio_7execucoes.png', dpi=300, bbox_inches='tight')
     plt.close()
     
     # Recriar e salvar o segundo gráfico
@@ -75,15 +80,16 @@ if salvar == 's':
     plt.grid(True, alpha=0.7)
     plt.yscale('log')
     plt.tight_layout()
-    plt.savefig('contador.png', dpi=300, bbox_inches='tight')
+    plt.savefig('contador_7execucoes.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    print("✓ Gráficos salvos como 'tempo_medio.png' e 'contador.png'")
+    print("✓ Gráficos salvos como 'tempo_medio_7execucoes.png' e 'contador_7execucoes.png'")
 
 # Salvar dados médios em CSV
 salvar_csv = input("Deseja salvar os dados médios em CSV? (s/n): ").lower()
 if salvar_csv == 's':
-    dados_media.to_csv('resultados_media.csv', index=False)
-    print("✓ Dados médios salvos em 'resultados_media.csv'")
+    dados_media.to_csv('resultados_media_7execucoes.csv', index=False)
+    print("✓ Dados médios salvos em 'resultados_media_7execucoes.csv'")
 
 print("\nAnálise concluída!")
+print(f"Média calculada com base em {len(arquivos)} execuções para maior precisão estatística.")
