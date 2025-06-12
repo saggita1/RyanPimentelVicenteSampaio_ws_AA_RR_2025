@@ -51,15 +51,16 @@ for (l = 1; l <= 10000; l++) {
 - **Loop j:** Executa em média `(n/2 - i - 2)` vezes para cada i
 - **Loop k:** Executa `n` vezes para cada combinação de i e j
 
-**Complexidade teórica:** O(n³)
+**Complexidade teórica:** O(n²)
 
 ## Experimentos Realizados
 
 ### Tamanhos de Entrada Testados
+- N = 100
+- N = 200  
+- N = 500
 - N = 1.000
-- N = 10.000  
-- N = 100.000
-- N = 1.000.000
+- N = 2.000
 
 ### Metodologia
 1. **Execuções múltiplas:** Foram realizadas 7 execuções independentes para cada tamanho de entrada
@@ -72,7 +73,7 @@ for (l = 1; l <= 10000; l++) {
 ### Gráfico 1: Número de Operações vs Tamanho de Entrada
 ![Número de Operações](imgs/contador_7execucoes.png)
 
-Este gráfico mostra o crescimento do número de operações realizadas pelo algoritmo conforme o tamanho da entrada aumenta. A escala logarítmica evidencia o crescimento cúbico esperado.
+Este gráfico mostra o crescimento do número de operações realizadas pelo algoritmo conforme o tamanho da entrada aumenta. A escala logarítmica evidencia o crescimento quadrático esperado.
 
 ### Gráfico 2: Tempo Médio de Execução vs Tamanho de Entrada
 ![Tempo Médio de Execução](imgs/tempo_medio_7execucoes.png)
@@ -109,7 +110,7 @@ python gerar_graficos_media.py
 
 ## Conclusões
 
-Os experimentos confirmam que o algoritmo possui complexidade de tempo O(n³), como evidenciado pelo crescimento cúbico tanto no número de operações quanto no tempo de execução. A análise empírica corrobora a análise teórica da complexidade assintótica do algoritmo.
+Os experimentos confirmam que o algoritmo possui complexidade de tempo O(n²), como evidenciado pelo crescimento quadrático tanto no número de operações quanto no tempo de execução. A análise empírica corrobora a análise teórica da complexidade assintótica do algoritmo.
 
 ---
 
